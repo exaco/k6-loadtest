@@ -8,10 +8,6 @@ This repository demonstrates an example of k6 Load tester which implements Smoke
 - python 3.6+
 - Docker
 
-## Application under test
-
-The AUT example is https://github.com/testdrivenio/flask-vue-crud. 
-
 ## Installation
 
 ### Application under test
