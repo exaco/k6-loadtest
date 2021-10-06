@@ -6,9 +6,9 @@ import http from "k6/http";
 import { config } from "./config.js";
 
 //Define constant variables 
-const test_mode = __ENV.test_mode;
-const base_url = config["base_url"];
-const stages = config[test_mode]["stages"]
+const test_mode = __ENV.test_mode;  // smoke, load, stress, soak
+const base_url = config["base_url"]; // base_url of the site defined in config
+const stages = config[test_mode]["stages"] // defining stages used in options
 console.log("Configuration", JSON.stringify({ test_mode, base_url, stages }));
 
 // Define option of the k6 test
@@ -18,6 +18,7 @@ export let options = {
 // Defining error rate
 export let errorRate = new Rate('errors');
 
+// random word generator
 function make_random_word(length) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
