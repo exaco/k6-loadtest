@@ -1,6 +1,6 @@
 # K6 Load Test Example 
 
-This repository demonstrates an example of k6 Load tester which implements Smoke, Load, Stress and Soak tests scenarios on an AUT(Application Under Test). Additionally it stores the results in Influxdb an could be visualized in Grafana.
+This repository demonstrates an example of k6 Load tester which implements Smoke, Load, Stress and Soak tests scenarios on an [AUT](https://github.com/testdrivenio/flask-vue-crud)(Application Under Test). Additionally it stores the results in Influxdb an could be visualized in Grafana.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ This repository demonstrates an example of k6 Load tester which implements Smoke
 
 ### Application under test
 
-The AUT example is https://github.com/testdrivenio/flask-vue-crud which uses a flask application as server and vueJs as client. Clone and it just as the readme guideline. You should be able to see the app on http://localhost:8080.
+The AUT example is https://github.com/testdrivenio/flask-vue-crud which uses a flask application as server and vueJs as client. Clone, install and setup the requirements just as the [readme](https://github.com/testdrivenio/flask-vue-crud/blob/master/README.md) guideline. You should be able to see the app on http://localhost:8080.
 
 ### Install k6
 
@@ -41,23 +41,31 @@ You should be able to see Grafana dashboard on http://localhost:3000
 
 Its default username and password is: `admin`
 
-2.  Import the provided dashboard by id: `15080` or by the [link](https://grafana.com/grafana/dashboards/15080)
+2.  Create a data source with below configurations:
 
-## Usage
+![influx-config](screenshots/influx-config.png)
 
-change directory to files:
+2.  Import the pre-configured Exa dashboard by id: `15080` or by the [link](https://grafana.com/grafana/dashboards/15080)
+
+Now everything is ready to get the test.
+
+## Run the test
+
+1. Clone the repository
+
+2. change directory to files:
 
 ```shell
 cd files
 ```
 
-Run k6 with desired test mode.
+Run k6 with the desired test mode. Wait for the test to get accomplished.
 
 ```shell
 k6 run -e test_mode=smoke --out influxdb=http://localhost:8086/myk6db test.js
 ```
 
-### Test modes
+You can choose the *test_mode* value according to the below options.
 
 - **smoke**: Targets the functionality of the system under the lowest load: Is it working with only one user?
 
@@ -67,7 +75,11 @@ k6 run -e test_mode=smoke --out influxdb=http://localhost:8086/myk6db test.js
 
 - **soak**: Would the system last for a long time(normally hours to days) under normal conditions? It’s working for 15min under normal condition in the load test but is feasible for a much longer time?
 
-### Running k6 with Docker
+3. Now you can get back to the imported [grafana dashboard](http://localhost:3000) and see the results.
+
+![results](screenshots/results.png)
+
+## Running k6 with Docker
 
 You can use the k6 official docker image to run the tests. This is a practical approach specially for CI/CD purposes like run the tests with cronjob. The Dockerfile in the root of the repository will do that for you. Furthermore, you can use it in docker-compose along with other containers by commenting out the *k6-tester* service.
 
