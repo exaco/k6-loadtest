@@ -1,0 +1,23 @@
+version: '3'
+services:
+  influxdb:
+    image: influxdb:1.8
+    volumes:
+      # Mount for influxdb data directory and configuration
+      - ./influxdb_data:/var/lib/influxdb
+    ports:
+      - "8086:8086"
+
+  grafana:
+    image: grafana/grafana:8.1.4
+    ports:
+      - "3000:3000"
+
+# Uncomment below lines if you want to run the k6 tester with docker
+  # k6-tester:
+  #   build: .
+  #   depends_on:
+  #     - "influxdb"
+  #   environment:
+  #     - test_mode=smoke              # test mode: smoke, load, stress, soak
+    
